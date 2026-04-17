@@ -1,6 +1,6 @@
 {
   "name": "outlined-emoji-picker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A lightweight, outlined emoji picker for React using Lucide icons. Returns SVG strings for inline rendering.",
   "keywords": [
     "emoji",
@@ -24,8 +24,10 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./styles.css": "./dist/index.css"
+    "./styles.css": "./dist/index.css",
+    "./dist/*": "./dist/*"
   },
+  "style": "dist/index.css",
   "files": [
     "dist"
   ],
