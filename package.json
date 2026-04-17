@@ -1,0 +1,56 @@
+{
+  "name": "outlined-emoji-picker",
+  "version": "0.1.0",
+  "description": "A lightweight, outlined emoji picker for React using Lucide icons. Returns SVG strings for inline rendering.",
+  "keywords": [
+    "emoji",
+    "picker",
+    "react",
+    "outlined",
+    "svg",
+    "lucide",
+    "icons",
+    "component",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./styles.css": "./dist/index.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
+  },
+  "dependencies": {
+    "lucide-react": ">=0.300.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0"
+  }
+}
