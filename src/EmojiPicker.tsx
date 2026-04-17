@@ -209,7 +209,7 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
       {/* Search bar — underline style */}
       <div className="ep-search-wrapper">
         <div className="ep-search-inner">
-          <Search className="ep-search-icon" size={20} strokeWidth={2} aria-hidden="true" />
+          <Search className="ep-search-icon" size={18} strokeWidth={2} aria-hidden="true" />
           <input
             ref={searchRef}
             className="ep-search-input"

@@ -105,16 +105,20 @@
 
 .ep-search-icon {
   position: absolute;
-  left: 0;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-55%);
   color: var(--ep-text-secondary);
   pointer-events: none;
   display: flex;
   align-items: center;
+  width: 18px;
+  height: 18px;
 }
 
 .ep-search-input {
   width: 100%;
-  padding: 2px 8px 2px 32px;
+  padding: 2px 8px 2px 28px;
   border: none;
   background: transparent;
   color: var(--ep-text);
