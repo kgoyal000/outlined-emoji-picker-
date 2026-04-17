@@ -109,16 +109,16 @@
 }
 
 .ep-container .ep-search-icon {
-  position: absolute;
-  left: 2px;
-  top: 50%;
-  transform: translateY(-55%);
   color: var(--ep-text-secondary);
   pointer-events: none;
-  display: flex;
   align-items: center;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-80%);
 }
 
 .ep-container .ep-search-input,
