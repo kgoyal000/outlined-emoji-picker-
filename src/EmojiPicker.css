@@ -409,19 +409,19 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Popover arrow */
+/* Popover arrow — centered inverted V */
 .ep-popover-arrow {
   position: absolute;
   bottom: -5px;
-  left: 24px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
   width: 12px;
   height: 12px;
-  background: var(--ep-arrow-bg);
+  background: var(--ep-bg);
   border-right: 1px solid var(--ep-border);
   border-bottom: 1px solid var(--ep-border);
-  transform: rotate(45deg);
   border-radius: 1px;
-  z-index: 1001;
+  z-index: 20;
 }
 
 /* ============================================================
