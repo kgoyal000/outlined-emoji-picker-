@@ -94,17 +94,19 @@
 
 .ep-search-icon {
   position: absolute;
-  left: 22px;
+  left: 24px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--ep-text-secondary);
   pointer-events: none;
+  display: flex;
+  align-items: center;
 }
 
 .ep-search-input {
   width: 100%;
-  padding: 8px 12px 8px 36px;
-  border: 1.5px solid transparent;
+  padding: 9px 12px 9px 38px;
+  border: 1.5px solid var(--ep-border);
   border-radius: 8px;
   background: var(--ep-search-bg);
   color: var(--ep-text);
@@ -129,12 +131,14 @@
 
 .ep-category-tabs {
   display: flex;
-  gap: 2px;
-  padding: 0 12px 8px;
+  gap: 4px;
+  padding: 4px 12px 8px;
   flex-shrink: 0;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  border-bottom: 1px solid var(--ep-border);
+  margin-bottom: 2px;
 }
 
 .ep-category-tabs::-webkit-scrollbar {
@@ -421,8 +425,7 @@
 .ep-container--popover {
   position: absolute;
   bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   z-index: 1000;
   animation: ep-popover-in 0.15s ease-out;
 }
@@ -430,10 +433,10 @@
 @keyframes ep-popover-in {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(8px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 }
