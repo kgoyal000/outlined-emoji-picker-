@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, ChevronRightIcon } from 'lucide-react';
 import { emojiData, CATEGORIES, CATEGORY_ICONS } from './emoji-data';
 import type { EmojiPickerProps, EmojiEntry, EmojiCategory } from './types';
 
@@ -206,29 +206,33 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
       role="dialog"
       aria-label="Emoji picker"
     >
-      {/* Search bar */}
+      {/* Search bar — underline style */}
       <div className="ep-search-wrapper">
-        <Search className="ep-search-icon" size={16} strokeWidth={2} aria-hidden="true" />
-        <input
-          ref={searchRef}
-          className="ep-search-input"
-          type="text"
-          placeholder="Search icons..."
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            setFocusIndex(-1);
-          }}
-          aria-label="Search emojis"
-        />
+        <div className="ep-search-inner">
+          <Search className="ep-search-icon" size={20} strokeWidth={2} aria-hidden="true" />
+          <input
+            ref={searchRef}
+            className="ep-search-input"
+            type="text"
+            placeholder="Search icons..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setFocusIndex(-1);
+            }}
+            aria-label="Search emojis"
+          />
+        </div>
       </div>
 
-      {/* Category tabs with scroll arrows */}
+      {/* Category tabs with gradient scroll indicators */}
       <div className="ep-tabs-wrapper">
         {canScrollLeft && (
-          <button className="ep-tabs-arrow ep-tabs-arrow--left" onClick={() => scrollTabs('left')} type="button" aria-label="Scroll left">
-            <ChevronLeft size={14} strokeWidth={2} />
-          </button>
+          <div className="ep-tabs-arrow ep-tabs-arrow--left">
+            <button onClick={() => scrollTabs('left')} type="button" aria-label="Scroll left">
+              <ChevronLeft size={12} strokeWidth={2.5} />
+            </button>
+          </div>
         )}
         <div ref={tabsRef} className="ep-category-tabs" role="tablist" aria-label="Emoji categories">
           {CATEGORIES.map((cat) => {
@@ -251,14 +255,17 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
           })}
         </div>
         {canScrollRight && (
-          <button className="ep-tabs-arrow ep-tabs-arrow--right" onClick={() => scrollTabs('right')} type="button" aria-label="Scroll right">
-            <ChevronRight size={14} strokeWidth={2} />
-          </button>
+          <div className="ep-tabs-arrow ep-tabs-arrow--right">
+            <button onClick={() => scrollTabs('right')} type="button" aria-label="Scroll right">
+              <ChevronRight size={12} strokeWidth={2.5} />
+            </button>
+          </div>
         )}
       </div>
 
       {/* Category label */}
       <div className="ep-category-label" aria-live="polite">
+        <ChevronRightIcon size={14} strokeWidth={2} />
         {categoryLabel}
       </div>
 

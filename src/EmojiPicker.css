@@ -2,60 +2,57 @@
    outlined-emoji-picker — CSS Variables & Theming
    ============================================================ */
 
-/* Light theme (default) */
 .ep-theme-light,
 .ep-theme-auto {
   --ep-bg: #ffffff;
-  --ep-bg-secondary: #f5f5f5;
-  --ep-text: #1a1a1a;
-  --ep-text-secondary: #6b7280;
-  --ep-border: #e5e7eb;
-  --ep-hover: #f0f0f0;
-  --ep-active: #dbeafe;
-  --ep-active-border: #93c5fd;
-  --ep-tab-active: #3b82f6;
-  --ep-tab-active-bg: #eff6ff;
-  --ep-search-bg: #f3f4f6;
-  --ep-search-focus: #3b82f6;
-  --ep-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --ep-bg-secondary: #f2f4f4;
+  --ep-text: #2d3435;
+  --ep-text-secondary: #5a6061;
+  --ep-border: rgba(173, 179, 180, 0.4);
+  --ep-hover: #ebeeef;
+  --ep-active: #eff6ff;
+  --ep-active-text: #1e3a8a;
+  --ep-search-focus: #007aff;
+  --ep-shadow: 0 12px 40px rgba(12, 15, 15, 0.06);
   --ep-empty-text: #9ca3af;
+  --ep-arrow-bg: #ffffff;
+  --ep-gradient-from: rgba(255,255,255,1);
+  --ep-gradient-to: rgba(255,255,255,0);
 }
 
-/* Dark theme */
 .ep-theme-dark {
   --ep-bg: #1f2937;
   --ep-bg-secondary: #111827;
   --ep-text: #f9fafb;
   --ep-text-secondary: #9ca3af;
-  --ep-border: #374151;
+  --ep-border: rgba(55, 65, 81, 0.6);
   --ep-hover: #374151;
   --ep-active: #1e3a5f;
-  --ep-active-border: #60a5fa;
-  --ep-tab-active: #60a5fa;
-  --ep-tab-active-bg: #1e3a5f;
-  --ep-search-bg: #111827;
+  --ep-active-text: #93c5fd;
   --ep-search-focus: #60a5fa;
-  --ep-shadow: 0 4px 24px rgba(0, 0, 0, 0.32);
+  --ep-shadow: 0 12px 40px rgba(0, 0, 0, 0.32);
   --ep-empty-text: #6b7280;
+  --ep-arrow-bg: #1f2937;
+  --ep-gradient-from: rgba(31,41,55,1);
+  --ep-gradient-to: rgba(31,41,55,0);
 }
 
-/* Auto theme: follow system preference */
 @media (prefers-color-scheme: dark) {
   .ep-theme-auto {
     --ep-bg: #1f2937;
     --ep-bg-secondary: #111827;
     --ep-text: #f9fafb;
     --ep-text-secondary: #9ca3af;
-    --ep-border: #374151;
+    --ep-border: rgba(55, 65, 81, 0.6);
     --ep-hover: #374151;
     --ep-active: #1e3a5f;
-    --ep-active-border: #60a5fa;
-    --ep-tab-active: #60a5fa;
-    --ep-tab-active-bg: #1e3a5f;
-    --ep-search-bg: #111827;
+    --ep-active-text: #93c5fd;
     --ep-search-focus: #60a5fa;
-    --ep-shadow: 0 4px 24px rgba(0, 0, 0, 0.32);
+    --ep-shadow: 0 12px 40px rgba(0, 0, 0, 0.32);
     --ep-empty-text: #6b7280;
+    --ep-arrow-bg: #1f2937;
+    --ep-gradient-from: rgba(31,41,55,1);
+    --ep-gradient-to: rgba(31,41,55,0);
   }
 }
 
@@ -68,12 +65,14 @@
   flex-direction: column;
   background: var(--ep-bg);
   border: 1px solid var(--ep-border);
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: var(--ep-shadow);
   color: var(--ep-text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow: hidden;
   box-sizing: border-box;
+  min-width: 260px;
+  max-width: 100%;
 }
 
 .ep-container *,
@@ -83,92 +82,116 @@
 }
 
 /* ============================================================
-   Search Bar
+   Search Bar — underline style
    ============================================================ */
 
 .ep-search-wrapper {
-  position: relative;
-  padding: 12px 12px 8px;
+  padding: 16px 16px 0;
   flex-shrink: 0;
+}
+
+.ep-search-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid var(--ep-border);
+  transition: border-color 0.2s;
+}
+
+.ep-search-wrapper:focus-within .ep-search-inner {
+  border-color: var(--ep-search-focus);
 }
 
 .ep-search-icon {
   position: absolute;
-  left: 22px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 0;
   color: var(--ep-text-secondary);
   pointer-events: none;
   display: flex;
   align-items: center;
-  z-index: 1;
 }
 
 .ep-search-input {
   width: 100%;
-  padding: 9px 12px 9px 40px;
-  border: 1.5px solid var(--ep-border);
-  border-radius: 8px;
-  background: var(--ep-search-bg);
+  padding: 2px 8px 2px 32px;
+  border: none;
+  background: transparent;
   color: var(--ep-text);
-  font-size: 13px;
+  font-size: 15px;
+  font-family: inherit;
   line-height: 1.4;
   outline: none;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .ep-search-input::placeholder {
   color: var(--ep-text-secondary);
 }
 
-.ep-search-input:focus {
-  border-color: var(--ep-search-focus);
-  background: var(--ep-bg);
-}
-
 /* ============================================================
-   Category Tabs
+   Category Tabs — with gradient scroll indicators
    ============================================================ */
 
-/* Tabs wrapper with scroll arrows */
 .ep-tabs-wrapper {
-  display: flex;
-  align-items: center;
-  padding: 0 4px;
+  position: relative;
   border-bottom: 1px solid var(--ep-border);
   flex-shrink: 0;
-  position: relative;
 }
 
 .ep-tabs-arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.ep-tabs-arrow--left {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: 4px;
+  background: linear-gradient(to right, var(--ep-gradient-from), var(--ep-gradient-to));
+}
+
+.ep-tabs-arrow--right {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 4px;
+  background: linear-gradient(to left, var(--ep-gradient-from), var(--ep-gradient-to));
+}
+
+.ep-tabs-arrow button {
+  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 28px;
-  border: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
   background: var(--ep-bg);
+  border: 1px solid var(--ep-border);
   color: var(--ep-text-secondary);
   cursor: pointer;
-  flex-shrink: 0;
   padding: 0;
-  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   transition: color 0.15s;
 }
 
-.ep-tabs-arrow:hover {
+.ep-tabs-arrow button:hover {
   color: var(--ep-text);
 }
 
 .ep-category-tabs {
   display: flex;
-  gap: 2px;
-  padding: 4px 4px 6px;
-  flex: 1;
+  gap: 4px;
+  padding: 8px 12px 10px;
   overflow-x: auto;
-  scrollbar-width: none;
+  scroll-behavior: smooth;
   -ms-overflow-style: none;
-  min-width: 0;
+  scrollbar-width: none;
 }
 
 .ep-category-tabs::-webkit-scrollbar {
@@ -179,15 +202,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   background: transparent;
   color: var(--ep-text-secondary);
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.15s, color 0.15s;
   padding: 0;
 }
 
@@ -197,13 +220,13 @@
 }
 
 .ep-category-tab--active {
-  background: var(--ep-tab-active-bg);
-  color: var(--ep-tab-active);
+  background: var(--ep-active);
+  color: var(--ep-active-text);
 }
 
 .ep-category-tab--active:hover {
-  background: var(--ep-tab-active-bg);
-  color: var(--ep-tab-active);
+  background: var(--ep-active);
+  color: var(--ep-active-text);
 }
 
 /* ============================================================
@@ -211,13 +234,23 @@
    ============================================================ */
 
 .ep-category-label {
-  padding: 4px 14px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px 8px;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--ep-text-secondary);
   flex-shrink: 0;
   user-select: none;
+}
+
+.ep-category-label svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0.7;
 }
 
 /* ============================================================
@@ -226,27 +259,18 @@
 
 .ep-grid {
   display: grid;
-  gap: 4px;
-  padding: 0 10px 10px;
+  gap: 4px 2px;
+  padding: 0 16px 12px;
   overflow-y: auto;
   flex: 1;
   min-height: 0;
   align-content: start;
-  scrollbar-width: thin;
-  scrollbar-color: var(--ep-border) transparent;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .ep-grid::-webkit-scrollbar {
-  width: 6px;
-}
-
-.ep-grid::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.ep-grid::-webkit-scrollbar-thumb {
-  background: var(--ep-border);
-  border-radius: 3px;
+  display: none;
 }
 
 .ep-grid-item {
@@ -255,13 +279,13 @@
   justify-content: center;
   width: 100%;
   aspect-ratio: 1;
-  border: 1.5px solid transparent;
+  border: none;
   border-radius: 8px;
   background: transparent;
   color: var(--ep-text);
   cursor: pointer;
-  transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.1s ease;
-  padding: 0;
+  transition: background-color 0.15s, transform 0.1s;
+  padding: 4px;
   outline: none;
 }
 
@@ -270,17 +294,17 @@
 }
 
 .ep-grid-item:focus-visible {
-  border-color: var(--ep-search-focus);
-  background: var(--ep-hover);
+  outline: 2px solid var(--ep-search-focus);
+  outline-offset: -2px;
 }
 
 .ep-grid-item:active {
-  transform: scale(0.92);
+  transform: scale(0.9);
 }
 
 .ep-grid-item--selected {
   background: var(--ep-active);
-  border-color: var(--ep-active-border);
+  color: var(--ep-active-text);
 }
 
 .ep-grid-item--selected:hover {
@@ -310,7 +334,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 10px 16px;
   border-top: 1px solid var(--ep-border);
   background: var(--ep-bg-secondary);
   flex-shrink: 0;
@@ -323,9 +347,9 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 6px;
+  border-radius: 8px;
   background: var(--ep-active);
-  color: var(--ep-text);
+  color: var(--ep-active-text);
   flex-shrink: 0;
 }
 
@@ -356,131 +380,60 @@
 }
 
 /* ============================================================
-   Responsive
-   ============================================================ */
-
-/* Container adapts to width prop but has sensible min/max */
-.ep-container {
-  min-width: 240px;
-  max-width: 100%;
-}
-
-/* Small screens: tighter padding, smaller tabs */
-@media (max-width: 400px) {
-  .ep-search-wrapper {
-    padding: 8px 8px 6px;
-  }
-
-  .ep-search-icon {
-    left: 18px;
-  }
-
-  .ep-search-input {
-    padding: 7px 10px 7px 32px;
-    font-size: 12px;
-  }
-
-  .ep-category-tabs {
-    padding: 0 8px 6px;
-    gap: 1px;
-  }
-
-  .ep-category-tab {
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
-    border-radius: 6px;
-  }
-
-  .ep-category-label {
-    padding: 3px 10px 5px;
-    font-size: 10px;
-  }
-
-  .ep-grid {
-    padding: 0 6px 6px;
-    gap: 3px;
-  }
-
-  .ep-grid-item {
-    border-radius: 6px;
-  }
-
-  .ep-preview {
-    padding: 8px 10px;
-    gap: 8px;
-    min-height: 42px;
-  }
-
-  .ep-preview-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .ep-preview-name {
-    font-size: 12px;
-  }
-
-  .ep-preview-category {
-    font-size: 10px;
-  }
-}
-
-/* When used inside a popover/modal — fill available space */
-.ep-container--fill {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 0;
-  border: none;
-  box-shadow: none;
-}
-
-/* Touch-friendly: larger tap targets on touch devices */
-@media (pointer: coarse) {
-  .ep-grid-item {
-    min-height: 40px;
-  }
-
-  .ep-category-tab {
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-  }
-}
-
-/* ============================================================
    Popover Mode
    ============================================================ */
 
 .ep-container--popover {
   position: absolute;
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + 10px);
   left: 0;
   z-index: 1000;
   animation: ep-popover-in 0.15s ease-out;
 }
 
 @keyframes ep-popover-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Popover arrow (inverted V pointing down) */
+/* Popover arrow */
 .ep-popover-arrow {
   position: absolute;
-  bottom: -7px;
+  bottom: -5px;
   left: 24px;
-  width: 14px;
-  height: 14px;
-  background: var(--ep-bg);
+  width: 12px;
+  height: 12px;
+  background: var(--ep-arrow-bg);
   border-right: 1px solid var(--ep-border);
   border-bottom: 1px solid var(--ep-border);
   transform: rotate(45deg);
-  z-index: -1;
+  border-radius: 1px;
+  z-index: 1001;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 360px) {
+  .ep-search-wrapper { padding: 12px 12px 0; }
+  .ep-search-input { font-size: 14px; }
+  .ep-category-tabs { padding: 6px 8px 8px; }
+  .ep-category-tab { width: 36px; height: 36px; min-width: 36px; border-radius: 10px; }
+  .ep-grid { padding: 0 12px 8px; }
+  .ep-category-label { padding: 10px 12px 6px; }
+  .ep-preview { padding: 8px 12px; }
+}
+
+@media (pointer: coarse) {
+  .ep-grid-item { min-height: 40px; }
+  .ep-category-tab { width: 42px; height: 42px; min-width: 42px; }
+}
+
+.ep-container--fill {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
 }
