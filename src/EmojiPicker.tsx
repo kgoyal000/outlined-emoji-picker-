@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Search } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { emojiData, CATEGORIES, CATEGORY_ICONS } from './emoji-data';
 import type { EmojiPickerProps, EmojiEntry, EmojiCategory } from './types';
 
@@ -42,6 +42,9 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   // Determine theme class
   const themeClass = useMemo(() => {
@@ -168,6 +171,28 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [mode, onClose]);
 
+  // Tab scroll detection
+  const checkTabScroll = useCallback(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 2);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 2);
+  }, []);
+
+  useEffect(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    checkTabScroll();
+    el.addEventListener('scroll', checkTabScroll, { passive: true });
+    return () => el.removeEventListener('scroll', checkTabScroll);
+  }, [checkTabScroll]);
+
+  const scrollTabs = useCallback((dir: 'left' | 'right') => {
+    const el = tabsRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir === 'left' ? -100 : 100, behavior: 'smooth' });
+  }, []);
+
   // Determine which label to show
   const categoryLabel = search.trim()
     ? `SEARCH RESULTS (${filteredEmojis.length})`
@@ -198,26 +223,38 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
         />
       </div>
 
-      {/* Category tabs */}
-      <div className="ep-category-tabs" role="tablist" aria-label="Emoji categories">
-        {CATEGORIES.map((cat) => {
-          const CatIcon = CATEGORY_ICONS[cat];
-          const isActive = !search.trim() && activeCategory === cat;
-          return (
-            <button
-              key={cat}
-              className={`ep-category-tab ${isActive ? 'ep-category-tab--active' : ''}`}
-              onClick={() => handleCategoryClick(cat)}
-              role="tab"
-              aria-selected={isActive}
-              aria-label={cat}
-              title={cat}
-              type="button"
-            >
-              <CatIcon size={16} strokeWidth={1.75} />
-            </button>
-          );
-        })}
+      {/* Category tabs with scroll arrows */}
+      <div className="ep-tabs-wrapper">
+        {canScrollLeft && (
+          <button className="ep-tabs-arrow ep-tabs-arrow--left" onClick={() => scrollTabs('left')} type="button" aria-label="Scroll left">
+            <ChevronLeft size={14} strokeWidth={2} />
+          </button>
+        )}
+        <div ref={tabsRef} className="ep-category-tabs" role="tablist" aria-label="Emoji categories">
+          {CATEGORIES.map((cat) => {
+            const CatIcon = CATEGORY_ICONS[cat];
+            const isActive = !search.trim() && activeCategory === cat;
+            return (
+              <button
+                key={cat}
+                className={`ep-category-tab ${isActive ? 'ep-category-tab--active' : ''}`}
+                onClick={() => handleCategoryClick(cat)}
+                role="tab"
+                aria-selected={isActive}
+                aria-label={cat}
+                title={cat}
+                type="button"
+              >
+                <CatIcon size={16} strokeWidth={1.75} />
+              </button>
+            );
+          })}
+        </div>
+        {canScrollRight && (
+          <button className="ep-tabs-arrow ep-tabs-arrow--right" onClick={() => scrollTabs('right')} type="button" aria-label="Scroll right">
+            <ChevronRight size={14} strokeWidth={2} />
+          </button>
+        )}
       </div>
 
       {/* Category label */}
@@ -276,6 +313,9 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
           </div>
         </div>
       )}
+
+      {/* Popover arrow */}
+      {mode === 'popover' && <div className="ep-popover-arrow" />}
     </div>
   );
 };

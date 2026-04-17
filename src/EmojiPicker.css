@@ -94,18 +94,19 @@
 
 .ep-search-icon {
   position: absolute;
-  left: 24px;
+  left: 22px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--ep-text-secondary);
   pointer-events: none;
   display: flex;
   align-items: center;
+  z-index: 1;
 }
 
 .ep-search-input {
   width: 100%;
-  padding: 9px 12px 9px 38px;
+  padding: 9px 12px 9px 40px;
   border: 1.5px solid var(--ep-border);
   border-radius: 8px;
   background: var(--ep-search-bg);
@@ -129,16 +130,45 @@
    Category Tabs
    ============================================================ */
 
+/* Tabs wrapper with scroll arrows */
+.ep-tabs-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  border-bottom: 1px solid var(--ep-border);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.ep-tabs-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 28px;
+  border: none;
+  background: var(--ep-bg);
+  color: var(--ep-text-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.ep-tabs-arrow:hover {
+  color: var(--ep-text);
+}
+
 .ep-category-tabs {
   display: flex;
-  gap: 4px;
-  padding: 4px 12px 8px;
-  flex-shrink: 0;
+  gap: 2px;
+  padding: 4px 4px 6px;
+  flex: 1;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  border-bottom: 1px solid var(--ep-border);
-  margin-bottom: 2px;
+  min-width: 0;
 }
 
 .ep-category-tabs::-webkit-scrollbar {
@@ -439,4 +469,18 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Popover arrow (inverted V pointing down) */
+.ep-popover-arrow {
+  position: absolute;
+  bottom: -7px;
+  left: 24px;
+  width: 14px;
+  height: 14px;
+  background: var(--ep-bg);
+  border-right: 1px solid var(--ep-border);
+  border-bottom: 1px solid var(--ep-border);
+  transform: rotate(45deg);
+  z-index: -1;
 }
