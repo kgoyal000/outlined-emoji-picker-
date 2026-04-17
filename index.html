@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outlined Emoji Picker — Demo</title>
+  <link rel="stylesheet" href="https://esm.sh/outlined-emoji-picker@0.4.4/dist/index.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      color: #1a1a1a;
+    }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .subtitle {
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 32px;
+      max-width: 500px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .demo-section { margin-bottom: 40px; text-align: center; }
+    .demo-section h2 { font-size: 18px; margin-bottom: 16px; color: #333; }
+    .popover-wrapper { position: relative; display: inline-block; }
+    .trigger-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .trigger-btn:hover { background: #f9f9f9; }
+    .selected-preview {
+      margin-top: 24px;
+      padding: 16px;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .selected-preview svg { width: 32px; height: 32px; }
+    .selected-name { font-weight: 600; font-size: 15px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #eff6ff;
+      color: #3b82f6;
+      font-size: 12px;
+      font-weight: 500;
+      margin-left: 4px;
+    }
+    .install-code {
+      background: #1a1a1a;
+      color: #e5e7eb;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 14px;
+      margin: 16px 0;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .theme-toggle:hover { background: #f9f9f9; }
+    body.dark-mode {
+      background: #111827;
+      color: #f9fafb;
+    }
+    body.dark-mode .subtitle { color: #9ca3af; }
+    body.dark-mode .demo-section h2 { color: #e5e7eb; }
+    body.dark-mode .trigger-btn {
+      background: #1f2937;
+      border-color: #374151;
+      color: #f9fafb;
+    }
+    body.dark-mode .trigger-btn:hover { background: #374151; }
+    body.dark-mode .selected-preview {
+      background: #1f2937;
+      border-color: #374151;
+    }
+    body.dark-mode .selected-name { color: #f9fafb; }
+    body.dark-mode .install-code {
+      background: #000;
+      color: #d1d5db;
+    }
+    body.dark-mode .theme-toggle {
+      background: #1f2937;
+      border-color: #374151;
+      color: #f9fafb;
+    }
+    body.dark-mode .theme-toggle:hover { background: #374151; }
+    body.dark-mode .badge {
+      background: #1e3a5f;
+      color: #60a5fa;
+    }
+    a { color: #3b82f6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .footer {
+      margin-top: auto;
+      padding-top: 40px;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="theme-toggle">Toggle Dark Mode</button>
+
+  <h1>Outlined Emoji Picker</h1>
+  <p class="subtitle">
+    A lightweight, accessible emoji picker for React using outlined Lucide icons.
+    Returns SVG strings for inline rendering.
+  </p>
+  <div class="install-code">npm install outlined-emoji-picker</div>
+
+  <div class="demo-section">
+    <h2>Standalone Mode</h2>
+    <div id="standalone-demo"></div>
+  </div>
+
+  <div class="demo-section">
+    <h2>Popover Mode <span class="badge">NEW</span></h2>
+    <div id="popover-demo"></div>
+  </div>
+
+  <p class="footer">
+    <a href="https://github.com/kgoyal000/outlined-emoji-picker-" target="_blank">GitHub</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://www.npmjs.com/package/outlined-emoji-picker" target="_blank">npm</a>
+  </p>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@18?dev",
+      "react/jsx-runtime": "https://esm.sh/react@18/jsx-runtime?dev",
+      "react-dom/client": "https://esm.sh/react-dom@18/client?dev",
+      "react-dom/server": "https://esm.sh/react-dom@18/server?dev",
+      "react-dom": "https://esm.sh/react-dom@18?dev",
+      "outlined-emoji-picker": "https://esm.sh/outlined-emoji-picker@0.4.4?external=react,react-dom&deps=react@18,react-dom@18",
+      "lucide-react": "https://esm.sh/lucide-react@latest?external=react&deps=react@18"
+    }
+  }
+  </script>
+  <script type="module">
+    import React, { useState } from 'react';
+    import { createRoot } from 'react-dom/client';
+    import { EmojiPicker } from 'outlined-emoji-picker';
+
+    const e = React.createElement;
+
+    // Theme toggle
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+
+    function StandaloneDemo() {
+      const [selected, setSelected] = useState(null);
+      const isDark = document.body.classList.contains('dark-mode');
+
+      return e('div', null,
+        e(EmojiPicker, {
+          onSelect: (emoji) => setSelected(emoji),
+          theme: 'auto',
+          width: 340,
+          height: 400,
+        }),
+        selected && e('div', { className: 'selected-preview', style: { marginTop: 16 } },
+          e('div', { dangerouslySetInnerHTML: { __html: selected.svg } }),
+          e('span', { className: 'selected-name' }, selected.name)
+        )
+      );
+    }
+
+    function PopoverDemo() {
+      const [open, setOpen] = useState(false);
+      const [selected, setSelected] = useState(null);
+
+      return e('div', { className: 'popover-wrapper' },
+        e('button', {
+          className: 'trigger-btn',
+          onClick: () => setOpen(!open),
+        },
+          selected
+            ? e('span', {
+                dangerouslySetInnerHTML: {
+                  __html: selected.svg
+                    .replace(/width="\d+"/, 'width="20"')
+                    .replace(/height="\d+"/, 'height="20"')
+                }
+              })
+            : '\u{1F60A}',
+          selected ? selected.name : 'Pick an icon'
+        ),
+        open && e(EmojiPicker, {
+          onSelect: (emoji) => {
+            setSelected(emoji);
+          },
+          onClose: () => setOpen(false),
+          mode: 'popover',
+          theme: 'auto',
+          width: 320,
+          height: 380,
+        })
+      );
+    }
+
+    createRoot(document.getElementById('standalone-demo')).render(e(StandaloneDemo));
+    createRoot(document.getElementById('popover-demo')).render(e(PopoverDemo));
+  </script>
+</body>
+</html>
