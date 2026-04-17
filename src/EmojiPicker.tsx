@@ -31,12 +31,15 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
   iconStrokeWidth = 1.75,
   className,
   style,
+  mode = 'standalone',
+  onClose,
 }) => {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState<EmojiCategory>(CATEGORIES[0]);
   const [selectedEmoji, setSelectedEmoji] = useState<EmojiEntry | null>(null);
   const [focusIndex, setFocusIndex] = useState(-1);
 
+  const containerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
 
@@ -66,8 +69,11 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
       setSelectedEmoji(entry);
       const svg = iconToSvg(entry.icon, iconSize, iconStrokeWidth);
       onSelect({ name: entry.name, svg });
+      if (mode === 'popover') {
+        onClose?.();
+      }
     },
-    [onSelect, iconSize, iconStrokeWidth]
+    [onSelect, iconSize, iconStrokeWidth, mode, onClose]
   );
 
   // Handle category tab click
@@ -134,6 +140,34 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
     }
   }, [focusIndex]);
 
+  // Popover: click-outside detection
+  useEffect(() => {
+    if (mode !== 'popover' || !onClose) return;
+
+    const handleMouseDown = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', handleMouseDown);
+    return () => document.removeEventListener('mousedown', handleMouseDown);
+  }, [mode, onClose]);
+
+  // Popover: Escape key to close
+  useEffect(() => {
+    if (mode !== 'popover' || !onClose) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [mode, onClose]);
+
   // Determine which label to show
   const categoryLabel = search.trim()
     ? `SEARCH RESULTS (${filteredEmojis.length})`
@@ -141,7 +175,8 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
 
   return (
     <div
-      className={`ep-container ${themeClass} ${className || ''}`}
+      ref={containerRef}
+      className={`ep-container ${themeClass}${mode === 'popover' ? ' ep-container--popover' : ''} ${className || ''}`}
       style={{ width, height, ...style }}
       role="dialog"
       aria-label="Emoji picker"

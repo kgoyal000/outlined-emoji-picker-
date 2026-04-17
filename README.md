@@ -25,8 +25,7 @@ A lightweight, accessible emoji picker for React that uses **outlined/stroke-sty
 
 ## Demo
 
-<!-- Replace with a screenshot or GIF of the component -->
-![Outlined Emoji Picker demo](https://via.placeholder.com/600x400?text=Outlined+Emoji+Picker)
+[**Live Demo**](https://kgoyal000.github.io/outlined-emoji-picker-/) — try both standalone and popover modes in the browser.
 
 ---
 
@@ -67,6 +66,42 @@ function App() {
 
 ---
 
+### Popover Mode
+
+Use `mode="popover"` to render the picker as a floating popover anchored to a trigger element:
+
+```tsx
+import { useState } from 'react';
+import { EmojiPicker } from 'outlined-emoji-picker';
+import 'outlined-emoji-picker/styles.css';
+
+function App() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div style={{ position: 'relative', display: 'inline-block' }}>
+      <button onClick={() => setOpen(!open)}>
+        Pick an icon
+      </button>
+      {open && (
+        <EmojiPicker
+          mode="popover"
+          onSelect={(emoji) => {
+            console.log(emoji.svg);
+            setOpen(false);
+          }}
+          onClose={() => setOpen(false)}
+        />
+      )}
+    </div>
+  );
+}
+```
+
+The popover positions itself above the trigger. Wrap the trigger and picker in a `position: relative` container.
+
+---
+
 ## API
 
 ### `<EmojiPicker />` Props
@@ -82,6 +117,8 @@ function App() {
 | `iconStrokeWidth` | `number` | `1.75` | Stroke width of the Lucide icons. |
 | `className` | `string` | `undefined` | Additional CSS class for the root container. |
 | `style` | `React.CSSProperties` | `undefined` | Additional inline styles for the root container. |
+| `mode` | `'standalone' \| 'popover'` | `'standalone'` | Display mode. `'standalone'` renders inline, `'popover'` renders as a floating popover. |
+| `onClose` | `() => void` | `undefined` | Called when the popover should close (click outside, Escape key, or emoji selected). Only used in popover mode. |
 
 ### `EmojiSelectResult`
 

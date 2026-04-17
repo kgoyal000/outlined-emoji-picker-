@@ -47,4 +47,8 @@ export interface EmojiPickerProps {
   className?: string;
   /** Additional inline styles */
   style?: React.CSSProperties;
+  /** Display mode. 'standalone' renders inline, 'popover' renders as floating popover. Default: 'standalone' */
+  mode?: 'standalone' | 'popover';
+  /** Called when popover should close (click outside, Escape key). Only used in popover mode. */
+  onClose?: () => void;
 }
