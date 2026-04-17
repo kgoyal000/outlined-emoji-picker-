@@ -206,6 +206,7 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
       role="dialog"
       aria-label="Emoji picker"
     >
+      <div className="ep-inner">
       {/* Search bar — underline style */}
       <div className="ep-search-wrapper">
         <div className="ep-search-inner">
@@ -320,6 +321,8 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
           </div>
         </div>
       )}
+
+      </div>{/* end ep-inner */}
 
       {/* Popover arrow */}
       {mode === 'popover' && <div className="ep-popover-arrow" />}
