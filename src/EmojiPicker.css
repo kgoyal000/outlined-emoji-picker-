@@ -81,6 +81,16 @@
   box-sizing: border-box;
 }
 
+/* Reset — protect from external CSS interference */
+.ep-container button {
+  font-family: inherit;
+  line-height: normal;
+  margin: 0;
+  text-transform: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 /* ============================================================
    Search Bar — underline style
    ============================================================ */
@@ -96,14 +106,9 @@
   align-items: center;
   padding-bottom: 10px;
   border-bottom: 1.5px solid var(--ep-border);
-  transition: border-color 0.2s;
 }
 
-.ep-search-wrapper:focus-within .ep-search-inner {
-  border-color: var(--ep-search-focus);
-}
-
-.ep-search-icon {
+.ep-container .ep-search-icon {
   position: absolute;
   left: 2px;
   top: 50%;
@@ -116,19 +121,23 @@
   height: 18px;
 }
 
-.ep-search-input {
-  width: 100%;
-  padding: 2px 8px 2px 28px;
-  border: none;
-  background: transparent;
-  color: var(--ep-text);
-  font-size: 15px;
-  font-family: inherit;
-  line-height: 1.4;
-  outline: none;
+.ep-container .ep-search-input,
+.ep-container .ep-search-input[type="text"] {
+  width: 100% !important;
+  padding: 2px 8px 2px 28px !important;
+  border: none !important;
+  border-bottom: none !important;
+  background: transparent !important;
+  color: var(--ep-text) !important;
+  font-size: 15px !important;
+  font-family: inherit !important;
+  line-height: 1.4 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
 }
 
-.ep-search-input::placeholder {
+.ep-container .ep-search-input::placeholder {
   color: var(--ep-text-secondary);
 }
 
